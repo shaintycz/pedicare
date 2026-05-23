@@ -1,3 +1,4 @@
+HTML
 <!DOCTYPE html>
 <html lang="cs">
 <head>
@@ -89,7 +90,7 @@
     border-radius: 50%; z-index: 0;
   }
 
-  .hero-content { max-width: 600px; position: relative; z-index: 1; }
+  .hero-content { max-width: 700px; position: relative; z-index: 1; }
 
   .hero-tag {
     display: inline-block;
@@ -108,8 +109,8 @@
   .hero h1 em { font-style: italic; color: var(--rose-deep); }
 
   .hero p {
-    font-size: 1rem; color: var(--text-soft); line-height: 1.7;
-    max-width: 440px; margin-bottom: 36px;
+    font-size: 1.05rem; color: var(--text-soft); line-height: 1.7;
+    max-width: 520px; margin-bottom: 36px;
   }
 
   .hero-btns { display: flex; gap: 16px; flex-wrap: wrap; }
@@ -133,44 +134,6 @@
     transition: all 0.2s;
   }
   .btn-outline:hover { background: var(--rose-light); transform: translateY(-2px); }
-
-  .hero-visual {
-    position: absolute; right: 0; top: 50%;
-    transform: translateY(-50%);
-    width: 45%; max-width: 500px;
-    z-index: 1;
-  }
-
-  .hero-card {
-    background: #fff; border-radius: 24px;
-    padding: 32px; margin: 16px;
-    box-shadow: 0 20px 60px rgba(0,0,0,0.08);
-    animation: float 6s ease-in-out infinite;
-  }
-
-  @keyframes float {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-10px); }
-  }
-
-  .hero-card-icon { font-size: 2.5rem; margin-bottom: 12px; }
-  .hero-card h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; margin-bottom: 6px; }
-  .hero-card p { font-size: 0.82rem; color: var(--text-soft); }
-
-  .hero-badge {
-    position: absolute; right: 40px; top: 30px;
-    background: var(--rose-deep); color: #fff;
-    width: 90px; height: 90px; border-radius: 50%;
-    display: flex; flex-direction: column; align-items: center; justify-content: center;
-    font-size: 0.65rem; text-align: center; letter-spacing: 0.05em;
-    animation: spin-slow 20s linear infinite;
-  }
-  .hero-badge strong { font-size: 1.4rem; display: block; }
-
-  @keyframes spin-slow {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
-  }
 
   .breadcrumb {
     position: absolute; bottom: 40px; left: 48px;
@@ -202,7 +165,7 @@
 
   .services-grid {
     display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 24px; max-width: 1000px; margin: 0 auto;
+    gap: 24px; max-width: 1100px; margin: 0 auto;
   }
 
   .service-card {
@@ -402,16 +365,11 @@
   .contact-item-text a { color: var(--text); text-decoration: none; }
   .contact-item-text a:hover { color: var(--rose-deep); }
 
-  .map-placeholder {
+  .map-container {
     border-radius: 20px; overflow: hidden;
     border: 1px solid var(--border); height: 300px;
-    background: var(--rose-light);
-    display: flex; align-items: center; justify-content: center;
-    flex-direction: column; gap: 12px;
-    font-size: 0.88rem; color: var(--text-soft);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
   }
-
-  .map-placeholder .map-icon { font-size: 3rem; }
 
   /* FOOTER */
   footer {
@@ -436,56 +394,22 @@
   }
 
   .hero-content { animation: fadeUp 0.8s ease both; }
-  .hero-visual { animation: fadeUp 0.8s ease 0.2s both; }
 
   /* MOBILE */
   @media (max-width: 768px) {
     nav { padding: 16px 24px; }
     .nav-links { display: none; }
     .hero { padding: 100px 24px 60px; }
-    .hero-visual { display: none; }
     section { padding: 70px 24px; }
     .booking-container { padding: 32px 24px; }
     .form-row { grid-template-columns: 1fr; }
     .contact-grid { grid-template-columns: 1fr; }
     footer { padding: 32px 24px; flex-direction: column; text-align: center; }
   }
-
-  /* MODAL */
-  .modal-overlay {
-    display: none; position: fixed; inset: 0; z-index: 200;
-    background: rgba(0,0,0,0.4); backdrop-filter: blur(4px);
-    align-items: center; justify-content: center; padding: 24px;
-  }
-  .modal-overlay.active { display: flex; }
-
-  .modal {
-    background: #fff; border-radius: 24px; padding: 48px;
-    max-width: 560px; width: 100%;
-    animation: fadeUp 0.3s ease;
-    max-height: 90vh; overflow-y: auto;
-  }
-
-  .modal-close {
-    position: absolute; top: 16px; right: 16px;
-    background: none; border: none; font-size: 1.4rem; cursor: pointer;
-    color: var(--text-soft); width: 36px; height: 36px;
-    display: flex; align-items: center; justify-content: center;
-    border-radius: 50%; transition: background 0.2s;
-  }
-  .modal-close:hover { background: var(--rose-light); }
-  .modal { position: relative; }
-
-  .modal-title {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 1.8rem; margin-bottom: 8px; font-weight: 300;
-  }
-  .modal-sub { font-size: 0.85rem; color: var(--text-soft); margin-bottom: 28px; }
 </style>
 </head>
 <body>
 
-<!-- NAV -->
 <nav>
   <a href="#" class="logo">PediCare <span>Písek</span></a>
   <ul class="nav-links">
@@ -498,7 +422,6 @@
   <span class="phone">+420 380 196 738</span>
 </nav>
 
-<!-- HERO -->
 <section class="hero" id="uvod">
   <div class="hero-content">
     <div class="hero-tag">Odborná pedikúra & Podologie</div>
@@ -510,21 +433,11 @@
     </div>
   </div>
 
-  <div class="hero-visual">
-    <div class="hero-badge">⭐<strong>5.0</strong>Google</div>
-    <div class="hero-card">
-      <div class="hero-card-icon">🌸</div>
-      <h3>Přístrojová pedikúra</h3>
-      <p>Šetrná a profesionální péče s nejmodernějšími přístroji</p>
-    </div>
-  </div>
-
   <div class="breadcrumb">
     <span>📍</span> Václavské náměstí, Písek &nbsp;·&nbsp; Centroterapie
   </div>
 </section>
 
-<!-- SERVICES -->
 <section id="sluzby">
   <div class="section-label">Vaše služby</div>
   <h2 class="section-title">Komplexní péče o Vaše nohy</h2>
@@ -535,6 +448,11 @@
       <div class="service-icon">💅</div>
       <h3>Přístrojová pedikúra</h3>
       <p>Šetrná a precizní ošetření nohou pomocí moderních technik. Ideální pro osoby s citlivými nebo problémovými nohami.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">🌸</div>
+      <h3>KARE pedikúra</h3>
+      <p>Prémiová a hloubková péče s využitím exkluzivní kosmetiky KARE pro maximální regeneraci a hydrataci pokožky.</p>
     </div>
     <div class="service-card">
       <div class="service-icon">🩺</div>
@@ -551,14 +469,18 @@
       <h3>Podologické ošetření</h3>
       <p>Odborné podologické služby včetně aplikace nehtového rovnátka a korekce stávajících onemocnění nohou.</p>
     </div>
+    <div class="service-card">
+      <div class="service-icon">💡</div>
+      <h3>Odborné poradenství</h3>
+      <p>Individuální konzultace, analýza stavu chodidel a doporučení správné domácí péče i vhodné obuvi.</p>
+    </div>
   </div>
 </section>
 
-<!-- PRICING -->
 <section id="cenik">
   <div class="section-label">Ceník</div>
-  <h2 class="section-title">Péče o Vaše nohy</h2>
-  <p class="section-sub">Transparentní ceny za profesionální služby.</p>
+  <h2 class="section-title">Přehledný ceník služeb</h2>
+  <p class="section-sub">Transparentní ceny za profesionální ošetření.</p>
 
   <div class="pricing-table">
     <div class="pricing-row">
@@ -635,7 +557,6 @@
   <p class="pricing-note">* Ceny jsou orientační a mohou se lišit podle rozsahu ošetření.</p>
 </section>
 
-<!-- REVIEWS -->
 <section id="recenze">
   <div class="section-label">Hodnocení</div>
   <h2 class="section-title">Co říkají naši klienti</h2>
@@ -700,7 +621,6 @@
   </div>
 </section>
 
-<!-- BOOKING -->
 <section id="objednat">
   <div class="section-label">Rezervace</div>
   <h2 class="section-title">Objednejte se online</h2>
@@ -756,7 +676,6 @@
   </div>
 </section>
 
-<!-- CONTACT -->
 <section id="kontakt">
   <div class="section-label">Kde nás najdete</div>
   <h2 class="section-title">Kontakt</h2>
@@ -800,18 +719,15 @@
       <a href="#objednat" class="btn-primary" style="display:inline-block; margin-top: 8px;">Objednat se online</a>
     </div>
 
-    <div class="map-placeholder" onclick="window.open('https://maps.google.com/?q=Václavské+náměstí+Písek','_blank')" style="cursor:pointer;">
-      <div class="map-icon">🗺️</div>
-      <div><strong>Václavské náměstí, Písek</strong></div>
-      <div style="font-size:0.75rem; margin-top: 4px;">Klikněte pro zobrazení na Google Maps</div>
+    <div class="map-container">
+      <iframe src="https://api.mapy.cz/frame?id=1727402&source=coor&x=14.1468&y=49.3088&z=15" width="100%" height="100%" frameborder="0" style="border:0;" allowfullscreen></iframe>
     </div>
   </div>
 </section>
 
-<!-- FOOTER -->
 <footer>
   <span class="logo-footer">PediCare Písek</span>
-  <span>© 2024 PediCare. Všechna práva vyhrazena.</span>
+  <span>© 2026 PediCare. Všechna práva vyhrazena.</span>
   <span><a href="mailto:pedicare@email.cz">pedicare@email.cz</a></span>
 </footer>
 
