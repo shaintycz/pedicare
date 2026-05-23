@@ -1,0 +1,868 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PediCare Písek – Péče o Vaše nohy</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --rose: #e8a4b0;
+    --rose-light: #f5dde3;
+    --rose-deep: #c4708a;
+    --cream: #fdf8f5;
+    --warm-white: #fffaf7;
+    --text: #2a1f1f;
+    --text-soft: #6b5050;
+    --border: #e8d5d5;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cream);
+    color: var(--text);
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; width: 100%; z-index: 100;
+    padding: 18px 48px;
+    display: flex; justify-content: space-between; align-items: center;
+    background: rgba(253, 248, 245, 0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.5rem; font-weight: 600; letter-spacing: 0.05em;
+    color: var(--rose-deep);
+    text-decoration: none;
+  }
+  .logo span { color: var(--text); font-weight: 300; font-style: italic; font-size: 0.85em; }
+
+  .nav-links { display: flex; gap: 36px; align-items: center; list-style: none; }
+  .nav-links a {
+    text-decoration: none; font-size: 0.82rem; letter-spacing: 0.08em;
+    text-transform: uppercase; color: var(--text-soft);
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--rose-deep); }
+
+  .nav-cta {
+    background: var(--rose-deep); color: #fff !important;
+    padding: 10px 22px; border-radius: 40px;
+    font-weight: 500; transition: background 0.2s, transform 0.2s !important;
+  }
+  .nav-cta:hover { background: #a85975 !important; transform: translateY(-1px) !important; }
+
+  .phone { font-size: 0.82rem; color: var(--text-soft); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex; align-items: center;
+    padding: 120px 48px 80px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute; right: -100px; top: -100px;
+    width: 700px; height: 700px;
+    background: radial-gradient(circle, var(--rose-light) 0%, transparent 70%);
+    border-radius: 50%; z-index: 0;
+  }
+
+  .hero::after {
+    content: '';
+    position: absolute; left: -50px; bottom: 100px;
+    width: 300px; height: 300px;
+    background: radial-gradient(circle, #f5e8d5 0%, transparent 70%);
+    border-radius: 50%; z-index: 0;
+  }
+
+  .hero-content { max-width: 600px; position: relative; z-index: 1; }
+
+  .hero-tag {
+    display: inline-block;
+    font-size: 0.7rem; letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--rose-deep); background: var(--rose-light);
+    padding: 6px 16px; border-radius: 30px; margin-bottom: 24px;
+  }
+
+  .hero h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(3rem, 6vw, 5rem);
+    font-weight: 300; line-height: 1.1;
+    margin-bottom: 20px;
+  }
+
+  .hero h1 em { font-style: italic; color: var(--rose-deep); }
+
+  .hero p {
+    font-size: 1rem; color: var(--text-soft); line-height: 1.7;
+    max-width: 440px; margin-bottom: 36px;
+  }
+
+  .hero-btns { display: flex; gap: 16px; flex-wrap: wrap; }
+
+  .btn-primary {
+    background: var(--rose-deep); color: #fff;
+    padding: 14px 32px; border-radius: 50px; border: none;
+    font-family: 'DM Sans', sans-serif; font-size: 0.9rem; cursor: pointer;
+    text-decoration: none; display: inline-block;
+    transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 4px 20px rgba(196, 112, 138, 0.35);
+  }
+  .btn-primary:hover { background: #a85975; transform: translateY(-2px); box-shadow: 0 8px 28px rgba(196, 112, 138, 0.45); }
+
+  .btn-outline {
+    background: transparent; color: var(--rose-deep);
+    padding: 14px 32px; border-radius: 50px;
+    border: 1.5px solid var(--rose);
+    font-family: 'DM Sans', sans-serif; font-size: 0.9rem; cursor: pointer;
+    text-decoration: none; display: inline-block;
+    transition: all 0.2s;
+  }
+  .btn-outline:hover { background: var(--rose-light); transform: translateY(-2px); }
+
+  .hero-visual {
+    position: absolute; right: 0; top: 50%;
+    transform: translateY(-50%);
+    width: 45%; max-width: 500px;
+    z-index: 1;
+  }
+
+  .hero-card {
+    background: #fff; border-radius: 24px;
+    padding: 32px; margin: 16px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.08);
+    animation: float 6s ease-in-out infinite;
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+  }
+
+  .hero-card-icon { font-size: 2.5rem; margin-bottom: 12px; }
+  .hero-card h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; margin-bottom: 6px; }
+  .hero-card p { font-size: 0.82rem; color: var(--text-soft); }
+
+  .hero-badge {
+    position: absolute; right: 40px; top: 30px;
+    background: var(--rose-deep); color: #fff;
+    width: 90px; height: 90px; border-radius: 50%;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    font-size: 0.65rem; text-align: center; letter-spacing: 0.05em;
+    animation: spin-slow 20s linear infinite;
+  }
+  .hero-badge strong { font-size: 1.4rem; display: block; }
+
+  @keyframes spin-slow {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+
+  .breadcrumb {
+    position: absolute; bottom: 40px; left: 48px;
+    display: flex; align-items: center; gap: 8px;
+    font-size: 0.75rem; color: var(--text-soft);
+  }
+  .breadcrumb span { opacity: 0.5; }
+
+  /* SERVICES */
+  section { padding: 100px 48px; }
+
+  .section-label {
+    text-align: center;
+    font-size: 0.68rem; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--rose-deep); margin-bottom: 16px;
+  }
+
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2rem, 4vw, 3rem); font-weight: 300;
+    text-align: center; margin-bottom: 12px;
+  }
+
+  .section-sub {
+    text-align: center; color: var(--text-soft);
+    font-size: 0.92rem; line-height: 1.7; max-width: 480px;
+    margin: 0 auto 60px;
+  }
+
+  .services-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 24px; max-width: 1000px; margin: 0 auto;
+  }
+
+  .service-card {
+    background: #fff; border-radius: 20px; padding: 36px 32px;
+    border: 1px solid var(--border);
+    transition: transform 0.3s, box-shadow 0.3s;
+    cursor: default;
+  }
+
+  .service-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 20px 50px rgba(196, 112, 138, 0.15);
+  }
+
+  .service-icon {
+    width: 52px; height: 52px; border-radius: 16px;
+    background: var(--rose-light);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.5rem; margin-bottom: 20px;
+  }
+
+  .service-card h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.35rem; margin-bottom: 12px;
+  }
+
+  .service-card p { font-size: 0.85rem; color: var(--text-soft); line-height: 1.6; }
+
+  /* PRICING */
+  #cenik { background: var(--warm-white); }
+
+  .pricing-table {
+    max-width: 700px; margin: 0 auto;
+    border-radius: 20px; overflow: hidden;
+    border: 1px solid var(--border);
+    background: #fff;
+  }
+
+  .pricing-row {
+    display: flex; justify-content: space-between; align-items: flex-start;
+    padding: 22px 32px; border-bottom: 1px solid var(--border);
+    gap: 16px; transition: background 0.2s;
+  }
+
+  .pricing-row:last-child { border-bottom: none; }
+  .pricing-row:hover { background: var(--rose-light); }
+
+  .pricing-row-left { display: flex; align-items: flex-start; gap: 14px; }
+
+  .pricing-dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--rose-deep); margin-top: 6px; flex-shrink: 0;
+  }
+
+  .pricing-name { font-size: 0.9rem; font-weight: 500; margin-bottom: 3px; }
+  .pricing-desc { font-size: 0.78rem; color: var(--text-soft); }
+
+  .pricing-price {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.15rem; font-weight: 600;
+    color: var(--rose-deep); white-space: nowrap; text-align: right;
+  }
+
+  .pricing-note {
+    text-align: center; font-size: 0.75rem; color: var(--text-soft);
+    margin-top: 20px; font-style: italic;
+  }
+
+  /* BOOKING */
+  #objednat { background: var(--cream); }
+
+  .booking-container {
+    max-width: 680px; margin: 0 auto;
+    background: #fff; border-radius: 24px; padding: 56px;
+    box-shadow: 0 20px 80px rgba(0,0,0,0.07);
+    border: 1px solid var(--border);
+  }
+
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+
+  .form-group { margin-bottom: 20px; }
+  .form-group label {
+    display: block; font-size: 0.78rem; letter-spacing: 0.06em;
+    text-transform: uppercase; color: var(--text-soft); margin-bottom: 8px;
+  }
+
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    width: 100%; padding: 13px 16px;
+    border: 1.5px solid var(--border); border-radius: 12px;
+    background: var(--cream); font-family: 'DM Sans', sans-serif;
+    font-size: 0.9rem; color: var(--text);
+    transition: border-color 0.2s, box-shadow 0.2s;
+    outline: none;
+  }
+
+  .form-group input:focus,
+  .form-group select:focus,
+  .form-group textarea:focus {
+    border-color: var(--rose-deep);
+    box-shadow: 0 0 0 3px rgba(196, 112, 138, 0.12);
+  }
+
+  .form-group textarea { resize: vertical; min-height: 100px; }
+
+  .form-submit {
+    width: 100%;
+    background: var(--rose-deep); color: #fff;
+    padding: 16px; border: none; border-radius: 14px;
+    font-family: 'DM Sans', sans-serif; font-size: 1rem; font-weight: 500;
+    cursor: pointer; letter-spacing: 0.04em;
+    transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 4px 20px rgba(196, 112, 138, 0.35);
+  }
+
+  .form-submit:hover { background: #a85975; transform: translateY(-2px); box-shadow: 0 8px 28px rgba(196, 112, 138, 0.45); }
+
+  .form-success {
+    display: none; text-align: center; padding: 32px;
+  }
+
+  .form-success .success-icon { font-size: 3rem; margin-bottom: 12px; }
+  .form-success h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; margin-bottom: 8px; }
+  .form-success p { color: var(--text-soft); font-size: 0.88rem; }
+
+  /* REVIEWS */
+  #recenze { background: var(--warm-white); }
+
+  .reviews-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 24px; max-width: 1000px; margin: 0 auto;
+  }
+
+  .review-card {
+    background: #fff; border-radius: 20px; padding: 30px;
+    border: 1px solid var(--border);
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+  .review-card:hover { transform: translateY(-4px); box-shadow: 0 16px 40px rgba(196, 112, 138, 0.12); }
+
+  .review-header { display: flex; align-items: center; gap: 14px; margin-bottom: 16px; }
+
+  .review-avatar {
+    width: 46px; height: 46px; border-radius: 50%;
+    background: var(--rose-deep);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.8rem; font-weight: 500; color: #fff;
+    flex-shrink: 0;
+  }
+
+  .review-name { font-weight: 500; font-size: 0.92rem; }
+  .review-date { font-size: 0.75rem; color: var(--text-soft); margin-top: 2px; }
+
+  .review-stars { color: #f59e0b; font-size: 0.85rem; margin-bottom: 12px; letter-spacing: 2px; }
+
+  .review-text { font-size: 0.86rem; color: var(--text-soft); line-height: 1.65; }
+
+  .review-like {
+    display: flex; align-items: center; gap: 6px;
+    margin-top: 16px; font-size: 0.75rem; color: var(--text-soft);
+  }
+
+  .google-badge {
+    text-align: center; margin-bottom: 40px;
+    font-size: 0.82rem; color: var(--text-soft);
+    display: flex; align-items: center; justify-content: center; gap: 8px;
+  }
+
+  /* CONTACT */
+  #kontakt { background: var(--cream); }
+
+  .contact-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 60px; max-width: 900px; margin: 0 auto; align-items: center;
+  }
+
+  .contact-info h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2rem; margin-bottom: 24px; font-weight: 300;
+  }
+
+  .contact-item {
+    display: flex; gap: 14px; align-items: flex-start;
+    margin-bottom: 22px;
+  }
+
+  .contact-item-icon {
+    width: 40px; height: 40px; border-radius: 12px;
+    background: var(--rose-light);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.1rem; flex-shrink: 0;
+  }
+
+  .contact-item-text .label { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-soft); }
+  .contact-item-text .value { font-size: 0.92rem; margin-top: 2px; }
+  .contact-item-text a { color: var(--text); text-decoration: none; }
+  .contact-item-text a:hover { color: var(--rose-deep); }
+
+  .map-placeholder {
+    border-radius: 20px; overflow: hidden;
+    border: 1px solid var(--border); height: 300px;
+    background: var(--rose-light);
+    display: flex; align-items: center; justify-content: center;
+    flex-direction: column; gap: 12px;
+    font-size: 0.88rem; color: var(--text-soft);
+  }
+
+  .map-placeholder .map-icon { font-size: 3rem; }
+
+  /* FOOTER */
+  footer {
+    background: var(--text); color: rgba(255,255,255,0.6);
+    padding: 40px 48px;
+    display: flex; justify-content: space-between; align-items: center;
+    font-size: 0.8rem; flex-wrap: wrap; gap: 16px;
+  }
+
+  footer .logo-footer {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.3rem; color: #fff; font-weight: 400;
+  }
+
+  footer a { color: rgba(255,255,255,0.5); text-decoration: none; }
+  footer a:hover { color: var(--rose); }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .hero-content { animation: fadeUp 0.8s ease both; }
+  .hero-visual { animation: fadeUp 0.8s ease 0.2s both; }
+
+  /* MOBILE */
+  @media (max-width: 768px) {
+    nav { padding: 16px 24px; }
+    .nav-links { display: none; }
+    .hero { padding: 100px 24px 60px; }
+    .hero-visual { display: none; }
+    section { padding: 70px 24px; }
+    .booking-container { padding: 32px 24px; }
+    .form-row { grid-template-columns: 1fr; }
+    .contact-grid { grid-template-columns: 1fr; }
+    footer { padding: 32px 24px; flex-direction: column; text-align: center; }
+  }
+
+  /* MODAL */
+  .modal-overlay {
+    display: none; position: fixed; inset: 0; z-index: 200;
+    background: rgba(0,0,0,0.4); backdrop-filter: blur(4px);
+    align-items: center; justify-content: center; padding: 24px;
+  }
+  .modal-overlay.active { display: flex; }
+
+  .modal {
+    background: #fff; border-radius: 24px; padding: 48px;
+    max-width: 560px; width: 100%;
+    animation: fadeUp 0.3s ease;
+    max-height: 90vh; overflow-y: auto;
+  }
+
+  .modal-close {
+    position: absolute; top: 16px; right: 16px;
+    background: none; border: none; font-size: 1.4rem; cursor: pointer;
+    color: var(--text-soft); width: 36px; height: 36px;
+    display: flex; align-items: center; justify-content: center;
+    border-radius: 50%; transition: background 0.2s;
+  }
+  .modal-close:hover { background: var(--rose-light); }
+  .modal { position: relative; }
+
+  .modal-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.8rem; margin-bottom: 8px; font-weight: 300;
+  }
+  .modal-sub { font-size: 0.85rem; color: var(--text-soft); margin-bottom: 28px; }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="logo">PediCare <span>Písek</span></a>
+  <ul class="nav-links">
+    <li><a href="#sluzby">Služby</a></li>
+    <li><a href="#cenik">Ceník</a></li>
+    <li><a href="#recenze">Recenze</a></li>
+    <li><a href="#kontakt">Kontakt</a></li>
+    <li><a href="#objednat" class="nav-cta">Objednat se</a></li>
+  </ul>
+  <span class="phone">+420 380 196 738</span>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="uvod">
+  <div class="hero-content">
+    <div class="hero-tag">Odborná pedikúra & Podologie</div>
+    <h1>Péče o Vaše <em>nohy</em><br>v centru Písku</h1>
+    <p>Profesionální přístrojová pedikúra a podologické ošetření. Bezpečná péče přizpůsobená zdravotnímu stavu Vašich klientů.</p>
+    <div class="hero-btns">
+      <a href="#objednat" class="btn-primary">Objednat se</a>
+      <a href="#cenik" class="btn-outline">Zobrazit ceník</a>
+    </div>
+  </div>
+
+  <div class="hero-visual">
+    <div class="hero-badge">⭐<strong>5.0</strong>Google</div>
+    <div class="hero-card">
+      <div class="hero-card-icon">🌸</div>
+      <h3>Přístrojová pedikúra</h3>
+      <p>Šetrná a profesionální péče s nejmodernějšími přístroji</p>
+    </div>
+  </div>
+
+  <div class="breadcrumb">
+    <span>📍</span> Václavské náměstí, Písek &nbsp;·&nbsp; Centroterapie
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="sluzby">
+  <div class="section-label">Moje služby</div>
+  <h2 class="section-title">Komplexní péče o Vaše nohy</h2>
+  <p class="section-sub">Nabízím širokou škálu profesionálních služeb pro zdraví a krásu Vašich nohou.</p>
+
+  <div class="services-grid">
+    <div class="service-card">
+      <div class="service-icon">💅</div>
+      <h3>Přístrojová pedikúra</h3>
+      <p>Šetrná a precizní ošetření nohou pomocí moderních technik. Ideální pro osoby s citlivými nebo problémovými nohami.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">🩺</div>
+      <h3>Péče o diabetiky</h3>
+      <p>Bezpečná a odborná péče přizpůsobená zdravotnímu stavu klientů. Prevence a dlouhodobé udržení zdravých nohou.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">🦶</div>
+      <h3>Ošetření problémových nohou</h3>
+      <p>Kuří oka, zarůstající nehty, praskliny, zatvrdlá místa a problematické nárůstky. Profesionální řešení všech problémů.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">🔬</div>
+      <h3>Podologické ošetření</h3>
+      <p>Odborné podologické služby včetně aplikace nehtového rovnátka a korekce stávajících onemocnění nohou.</p>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section id="cenik">
+  <div class="section-label">Ceník</div>
+  <h2 class="section-title">Péče o Vaše nohy</h2>
+  <p class="section-sub">Transparentní ceny za profesionální služby.</p>
+
+  <div class="pricing-table">
+    <div class="pricing-row">
+      <div class="pricing-row-left">
+        <div class="pricing-dot"></div>
+        <div>
+          <div class="pricing-name">Přístrojová pedikúra</div>
+          <div class="pricing-desc">Kompletní profesionální ošetření nohou</div>
+        </div>
+      </div>
+      <div class="pricing-price">od 850 Kč</div>
+    </div>
+    <div class="pricing-row">
+      <div class="pricing-row-left">
+        <div class="pricing-dot"></div>
+        <div>
+          <div class="pricing-name">KARE pedikúra</div>
+          <div class="pricing-desc">Prémiová péče s kosmetikou KARE</div>
+        </div>
+      </div>
+      <div class="pricing-price">od 1 400 Kč</div>
+    </div>
+    <div class="pricing-row">
+      <div class="pricing-row-left">
+        <div class="pricing-dot"></div>
+        <div>
+          <div class="pricing-name">Podologické ošetření</div>
+          <div class="pricing-desc">Odborné podologické služby</div>
+        </div>
+      </div>
+      <div class="pricing-price">od 1 000 Kč</div>
+    </div>
+    <div class="pricing-row">
+      <div class="pricing-row-left">
+        <div class="pricing-dot"></div>
+        <div>
+          <div class="pricing-name">Ošetření zarůstajícího nehtu – bez pomůcky</div>
+          <div class="pricing-desc">Řešení problémů se zarůstajícími nehty</div>
+        </div>
+      </div>
+      <div class="pricing-price">od 350 Kč</div>
+    </div>
+    <div class="pricing-row">
+      <div class="pricing-row-left">
+        <div class="pricing-dot"></div>
+        <div>
+          <div class="pricing-name">Aplikace nehtového rovnátka</div>
+          <div class="pricing-desc">Korekce 1 nehtu / za měsíc</div>
+        </div>
+      </div>
+      <div class="pricing-price">700 Kč</div>
+    </div>
+    <div class="pricing-row">
+      <div class="pricing-row-left">
+        <div class="pricing-dot"></div>
+        <div>
+          <div class="pricing-name">Ošetření kuřího oka / mozole</div>
+          <div class="pricing-desc">Odstranění bolesti a zánětu v okolí oblasti</div>
+        </div>
+      </div>
+      <div class="pricing-price">300–500 Kč</div>
+    </div>
+    <div class="pricing-row">
+      <div class="pricing-row-left">
+        <div class="pricing-dot"></div>
+        <div>
+          <div class="pricing-name">Konzultace – odborné poradenství</div>
+          <div class="pricing-desc">Individuální podologická poradenství</div>
+        </div>
+      </div>
+      <div class="pricing-price">500 Kč / 30 min</div>
+    </div>
+  </div>
+  <p class="pricing-note">* Ceny jsou orientační a mohou se lišit podle rozsahu ošetření.</p>
+</section>
+
+<!-- REVIEWS -->
+<section id="recenze">
+  <div class="section-label">Hodnocení</div>
+  <h2 class="section-title">Co říkají moji klienti</h2>
+
+  <div class="google-badge">
+    <span>⭐⭐⭐⭐⭐</span>
+    <strong>5.0</strong> na Google Reviews
+  </div>
+
+  <div class="reviews-grid">
+    <div class="review-card">
+      <div class="review-header">
+        <div class="review-avatar">GH</div>
+        <div>
+          <div class="review-name">Gabriela Havránková</div>
+          <div class="review-date">15. dubna 2024</div>
+        </div>
+      </div>
+      <div class="review-stars">★★★★★</div>
+      <p class="review-text">Ochotná, milá, příjemná, šikovná a rozumí tomu, co dělá!!! Nic víc není třeba dodávat.</p>
+      <div class="review-like">🤍 Líbí se 0</div>
+    </div>
+
+    <div class="review-card">
+      <div class="review-header">
+        <div class="review-avatar">AV</div>
+        <div>
+          <div class="review-name">Andrea Vlachová</div>
+          <div class="review-date">5. května 2023</div>
+        </div>
+      </div>
+      <div class="review-stars">★★★★★</div>
+      <p class="review-text">Velice profesionální, milý a vstřícný přístup. Čistý, útulný salon, kde se člověk cítí jako v ráji ❤️ Neskutečně hladké nohy po přístrojové pedikúře, plus mi paní pomohla od letitého trápení zarůstajících nehtů. Vřele doporučuji ❤️</p>
+      <div class="review-like">🤍 Líbí se 0</div>
+    </div>
+
+    <div class="review-card">
+      <div class="review-header">
+        <div class="review-avatar">IH</div>
+        <div>
+          <div class="review-name">Ivanka Holešová</div>
+          <div class="review-date">3. března 2023</div>
+        </div>
+      </div>
+      <div class="review-stars">★★★★★</div>
+      <p class="review-text">Úžasné prostředí a velice milá paní Hedvika, vzorná péče o nohy. Děkuji!</p>
+      <div class="review-like">🤍 Líbí se 0</div>
+    </div>
+
+    <div class="review-card">
+      <div class="review-header">
+        <div class="review-avatar" style="background:#7c9e7a;">MT</div>
+        <div>
+          <div class="review-name">Mar Tinap</div>
+          <div class="review-date">28. listopadu 2022</div>
+        </div>
+      </div>
+      <div class="review-stars">★★★★★</div>
+      <p class="review-text">Skvělá suchá přístrojová pedikúra, čisté prostředí. Rozhodně doporučuji.</p>
+      <div class="review-like">🤍 Líbí se 0</div>
+    </div>
+  </div>
+</section>
+
+<!-- BOOKING -->
+<section id="objednat">
+  <div class="section-label">Rezervace</div>
+  <h2 class="section-title">Objednejte se online</h2>
+  <p class="section-sub">Vyplňte formulář a ozvu se Vám pro potvrzení termínu.</p>
+
+  <div class="booking-container">
+    <div id="bookingForm">
+      <div class="form-row">
+        <div class="form-group">
+          <label>Jméno a příjmení *</label>
+          <input type="text" id="fname" placeholder="Jana Nováková">
+        </div>
+        <div class="form-group">
+          <label>Telefonní číslo *</label>
+          <input type="tel" id="phone" placeholder="+420 777 888 999">
+        </div>
+      </div>
+      <div class="form-group">
+        <label>E-mailová adresa</label>
+        <input type="email" id="email" placeholder="jana@example.cz">
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Typ služby *</label>
+          <select id="service">
+            <option value="">Vyberte službu...</option>
+            <option>Přístrojová pedikúra</option>
+            <option>KARE pedikúra</option>
+            <option>Podologické ošetření</option>
+            <option>Péče o diabetiky</option>
+            <option>Ošetření zarůstajícího nehtu</option>
+            <option>Aplikace nehtového rovnátka</option>
+            <option>Ošetření kuřího oka / mozolu</option>
+            <option>Konzultace</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Preferovaný termín</label>
+          <input type="date" id="date">
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Poznámka / zdravotní informace</label>
+        <textarea id="note" placeholder="Sdělte nám případné zdravotní omezení nebo speciální přání..."></textarea>
+      </div>
+      <button class="form-submit" onclick="submitForm()">Odeslat rezervaci →</button>
+    </div>
+    <div class="form-success" id="formSuccess">
+      <div class="success-icon">🌸</div>
+      <h3>Rezervace odeslána!</h3>
+      <p>Děkuji za Vaši rezervaci. Brzy se Vám ozvu pro potvrzení termínu.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="kontakt">
+  <div class="section-label">Kde mě najdete</div>
+  <h2 class="section-title">Kontakt</h2>
+
+  <div class="contact-grid">
+    <div class="contact-info">
+      <h3>Přijďte mě navštívit</h3>
+
+      <div class="contact-item">
+        <div class="contact-item-icon">📍</div>
+        <div class="contact-item-text">
+          <div class="label">Adresa</div>
+          <div class="value">Václavské náměstí, Písek<br>Centrum – snadno dostupné</div>
+        </div>
+      </div>
+
+      <div class="contact-item">
+        <div class="contact-item-icon">📞</div>
+        <div class="contact-item-text">
+          <div class="label">Telefon</div>
+          <div class="value"><a href="tel:+420380196738">+420 380 196 738</a></div>
+        </div>
+      </div>
+
+      <div class="contact-item">
+        <div class="contact-item-icon">✉️</div>
+        <div class="contact-item-text">
+          <div class="label">E-mail</div>
+          <div class="value"><a href="mailto:pedicare@email.cz">pedicare@email.cz</a></div>
+        </div>
+      </div>
+
+      <div class="contact-item">
+        <div class="contact-item-icon">🕐</div>
+        <div class="contact-item-text">
+          <div class="label">Otevírací doba</div>
+          <div class="value">Po–Pá: 8:00 – 17:00<br>So: dle domluvy</div>
+        </div>
+      </div>
+
+      <a href="#objednat" class="btn-primary" style="display:inline-block; margin-top: 8px;">Objednat se online</a>
+    </div>
+
+    <div class="map-placeholder" onclick="window.open('https://maps.google.com/?q=Václavské+náměstí+Písek','_blank')" style="cursor:pointer;">
+      <div class="map-icon">🗺️</div>
+      <div><strong>Václavské náměstí, Písek</strong></div>
+      <div style="font-size:0.75rem; margin-top: 4px;">Klikněte pro zobrazení na Google Maps</div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <span class="logo-footer">PediCare Písek</span>
+  <span>© 2024 PediCare. Všechna práva vyhrazena.</span>
+  <span><a href="mailto:pedicare@email.cz">pedicare@email.cz</a></span>
+</footer>
+
+<script>
+function submitForm() {
+  const name = document.getElementById('fname').value.trim();
+  const phone = document.getElementById('phone').value.trim();
+  const service = document.getElementById('service').value;
+
+  if (!name || !phone || !service) {
+    alert('Prosím vyplňte jméno, telefon a typ služby.');
+    return;
+  }
+
+  const email = document.getElementById('email').value;
+  const date = document.getElementById('date').value;
+  const note = document.getElementById('note').value;
+
+  const subject = encodeURIComponent(`Nová rezervace – ${service}`);
+  const body = encodeURIComponent(
+    `Nová rezervace z webu PediCare:\n\n` +
+    `Jméno: ${name}\n` +
+    `Telefon: ${phone}\n` +
+    `E-mail: ${email || 'neuvedeno'}\n` +
+    `Služba: ${service}\n` +
+    `Datum: ${date || 'neuvedeno'}\n` +
+    `Poznámka: ${note || 'žádná'}`
+  );
+
+  window.location.href = `mailto:pedicare@email.cz?subject=${subject}&body=${body}`;
+
+  document.getElementById('bookingForm').style.display = 'none';
+  document.getElementById('formSuccess').style.display = 'block';
+}
+
+// Smooth reveal on scroll
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.style.opacity = '1';
+      e.target.style.transform = 'translateY(0)';
+    }
+  });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.service-card, .pricing-row, .review-card, .contact-item').forEach(el => {
+  el.style.opacity = '0';
+  el.style.transform = 'translateY(20px)';
+  el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+  observer.observe(el);
+});
+</script>
+</body>
+</html>
